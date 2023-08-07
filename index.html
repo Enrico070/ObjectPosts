@@ -8,6 +8,7 @@
     <script src="assets/js/script.index.js"></script>
 </head>
 <body>
+    <main>
     <h1>Próprios Posts</h1>
 
     <div id="postForm">
@@ -27,9 +28,10 @@
             <label for="date">Data</label>
             <input type="date" name="date" id="date" required>
         </div>
-        <button>Cadastrar</button>
+        <button onclick="savePost()">Cadastrar</button>
     </div>
 
     <div id="list"></div>
+</main>
 </body>
 </html>
