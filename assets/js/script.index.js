@@ -1,4 +1,5 @@
 const posts = [];
+let indexPosts = -1;
 
 function savePost() {
     const title = document.getElementById("title").value;
@@ -6,9 +7,27 @@ function savePost() {
     const publisher = document.getElementById("publisher").value;
     const date = document.getElementById("date").value;
 
-    if (title && resume && publisher && date) {
-        storePost(title, resume, publisher, date);
+    if (indexPosts == -1){
+        if (title && resume && publisher && date) {
+            storePost(title, resume, publisher, date);
+            cleanFields()
+        }
+    }else{
+        if(title && resume && publisher && date){
+            posts[indexPosts] = {
+                title,
+                resume,
+                publisher,
+                date
+            };
+
+            showPosts();
+            indexPosts = -1;
+            cleanFields();
+        }
     }
+
+    
 }
 
 
@@ -23,7 +42,7 @@ function storePost(title, resume, publisher, date) {
 
 
     posts.push(post);
-    showPost();
+    showPosts();
 
 }
 
@@ -32,7 +51,7 @@ function storePost(title, resume, publisher, date) {
 
 
 
-function showPost(){
+function showPosts(){
     let showContent = "";
 
     posts.forEach((post, index) => {
@@ -52,4 +71,32 @@ function showPost(){
     })
 
     document.getElementById("list").innerHTML = showContent;
+}
+
+
+function cleanFields(){
+    document.getElementById("title").value = "";
+    document.getElementById("resume").value = "";
+    document.getElementById("publisher").value = "";
+    document.getElementById("date").value = "";
+}
+
+function editPost(index) {
+    indexPosts = index;
+
+    const post = posts[index];
+   
+
+    document.getElementById("title").value = post.title;
+    document.getElementById("resume").value = post.resume;
+    document.getElementById("publisher").value = post.publisher;
+    document.getElementById("date").value = post.date;
+}
+
+
+
+function removePost(index){
+    posts.splice(index,1);
+
+    showPosts();
 }
